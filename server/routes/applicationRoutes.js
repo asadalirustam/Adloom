@@ -11,7 +11,7 @@ const { protect, authorize } = require('../middleware/auth');
 const router = express.Router();
 
 router.post('/apply/:requirementId', protect, authorize('creator'), applyToRequirement);
-router.get('/my', protect, authorize('creator'), getMyApplications);
+router.get('/my', protect, authorize('creator', 'admin'), getMyApplications);
 router.get('/requirement/:requirementId', protect, authorize('business', 'admin'), getApplicationsForRequirement);
 router.post('/:id/accept', protect, authorize('business', 'admin'), acceptApplication);
 router.post('/:id/reject', protect, authorize('business', 'admin'), rejectApplication);

@@ -16,6 +16,7 @@ import {
   ExternalLink,
   Clock,
   CheckCircle2,
+  ChevronRight,
 } from 'lucide-react';
 
 const CreatorDashboard = () => {
