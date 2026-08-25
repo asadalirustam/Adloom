@@ -48,7 +48,7 @@ function App() {
       <SocketProvider>
         <NotificationProvider>
           <Router>
-            <div className="min-h-screen flex flex-col bg-[#090D16] text-slate-100 selection:bg-indigo-500 selection:text-white">
+            <div className="min-h-screen flex flex-col bg-background text-foreground selection:bg-coral selection:text-white">
               <Navbar />
               <div className="flex-1">
                 <Routes>
@@ -191,10 +191,10 @@ function App() {
                 position="bottom-right"
                 toastOptions={{
                   style: {
-                    background: '#111726',
-                    color: '#fff',
-                    border: '1px solid #1E293B',
-                    borderRadius: '1rem',
+                    background: 'var(--card)',
+                    color: 'var(--card-foreground)',
+                    border: '1px solid var(--border)',
+                    borderRadius: 'var(--radius)',
                     fontSize: '13px',
                   },
                 }}
