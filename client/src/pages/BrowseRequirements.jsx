@@ -90,14 +90,14 @@ const BrowseRequirements = () => {
   };
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8 transition-colors duration-200">
       {/* Header Banner */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 border-b border-slate-800/80">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 border-b border-border">
         <div>
-          <h1 className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">
+          <h1 className="text-2xl sm:text-3xl font-extrabold text-foreground tracking-tight">
             Open Brand Campaigns & Briefs
           </h1>
-          <p className="text-xs sm:text-sm text-slate-400 mt-1">
+          <p className="text-xs sm:text-sm text-muted-foreground mt-1">
             Browse active promotional requirements posted by brands looking for creator partnerships.
           </p>
         </div>
@@ -106,7 +106,7 @@ const BrowseRequirements = () => {
           {isBusiness && (
             <button
               onClick={() => navigate('/business/post-requirement')}
-              className="flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-500 text-white text-xs font-semibold shadow-lg shadow-indigo-600/20 transition"
+              className="flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-coral hover:bg-coral-600 text-white text-xs font-semibold shadow-lg shadow-coral/20 transition"
             >
               <PlusCircle className="w-3.5 h-3.5" />
               Post Campaign
@@ -114,13 +114,13 @@ const BrowseRequirements = () => {
           )}
           <button
             onClick={() => setMobileFilterOpen(!mobileFilterOpen)}
-            className="md:hidden flex items-center gap-1.5 px-3 py-2 rounded-xl bg-slate-900 border border-slate-800 text-xs font-semibold text-slate-200"
+            className="md:hidden flex items-center gap-1.5 px-3 py-2 rounded-xl bg-card border border-border text-xs font-semibold text-foreground"
           >
-            <SlidersHorizontal className="w-3.5 h-3.5 text-indigo-400" />
+            <SlidersHorizontal className="w-3.5 h-3.5 text-coral" />
             Filters
           </button>
-          <div className="text-xs text-slate-400 font-medium px-3 py-2 rounded-xl bg-slate-900/60 border border-slate-800">
-            <span className="font-bold text-white">{totalCount}</span> Campaigns Open
+          <div className="text-xs text-muted-foreground font-medium px-3 py-2 rounded-xl bg-card border border-border">
+            <span className="font-bold text-foreground">{totalCount}</span> Campaigns Open
           </div>
         </div>
       </div>
@@ -138,7 +138,7 @@ const BrowseRequirements = () => {
 
         {/* Mobile Filter */}
         {mobileFilterOpen && (
-          <div className="md:hidden col-span-1">
+          <div className="md:hidden col-span-1 animate-in fade-in slide-in-from-top-2 duration-150">
             <RequirementFilters
               filters={filters}
               setFilters={setFilters}
@@ -181,17 +181,19 @@ const BrowseRequirements = () => {
               <button
                 disabled={filters.page <= 1}
                 onClick={() => setFilters((prev) => ({ ...prev, page: prev.page - 1 }))}
-                className="p-2 rounded-xl bg-slate-900 border border-slate-800 text-slate-300 hover:text-white disabled:opacity-30 disabled:pointer-events-none transition"
+                aria-label="Previous page"
+                className="p-2 rounded-xl bg-card border border-border text-foreground hover:bg-accent disabled:opacity-30 disabled:pointer-events-none transition"
               >
                 <ChevronLeft className="w-4 h-4" />
               </button>
-              <span className="text-xs font-semibold text-slate-300 px-3">
+              <span className="text-xs font-semibold text-foreground px-3">
                 Page {filters.page} of {totalPages}
               </span>
               <button
                 disabled={filters.page >= totalPages}
                 onClick={() => setFilters((prev) => ({ ...prev, page: prev.page + 1 }))}
-                className="p-2 rounded-xl bg-slate-900 border border-slate-800 text-slate-300 hover:text-white disabled:opacity-30 disabled:pointer-events-none transition"
+                aria-label="Next page"
+                className="p-2 rounded-xl bg-card border border-border text-foreground hover:bg-accent disabled:opacity-30 disabled:pointer-events-none transition"
               >
                 <ChevronRight className="w-4 h-4" />
               </button>

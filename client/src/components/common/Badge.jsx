@@ -2,13 +2,13 @@ import React from 'react';
 
 const Badge = ({ children, variant = 'default', size = 'sm', className = '' }) => {
   const variants = {
-    default: 'bg-slate-800 text-slate-300 border-slate-700',
-    primary: 'bg-indigo-500/10 text-indigo-400 border-indigo-500/30',
-    emerald: 'bg-emerald-500/10 text-emerald-400 border-emerald-500/30',
-    amber: 'bg-amber-500/10 text-amber-400 border-amber-500/30',
-    rose: 'bg-rose-500/10 text-rose-400 border-rose-500/30',
-    cyan: 'bg-cyan-500/10 text-cyan-400 border-cyan-500/30',
-    purple: 'bg-purple-500/10 text-purple-400 border-purple-500/30',
+    default: 'bg-muted/30 text-foreground border-border',
+    primary: 'bg-coral/15 text-coral border-coral/30',
+    emerald: 'bg-emerald-500/15 text-emerald-700 dark:text-emerald-300 border-emerald-500/30',
+    amber: 'bg-amber-500/15 text-amber-700 dark:text-amber-300 border-amber-500/30',
+    rose: 'bg-rose-500/15 text-rose-700 dark:text-rose-300 border-rose-500/30',
+    cyan: 'bg-cyan-500/15 text-cyan-700 dark:text-cyan-300 border-cyan-500/30',
+    purple: 'bg-purple-500/15 text-purple-700 dark:text-purple-300 border-purple-500/30',
   };
 
   const sizes = {

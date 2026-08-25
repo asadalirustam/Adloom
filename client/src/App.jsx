@@ -1,5 +1,6 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { ThemeProvider } from './context/ThemeContext';
 import { AuthProvider } from './context/AuthContext';
 import { SocketProvider } from './context/SocketContext';
 import { NotificationProvider } from './context/NotificationContext';
@@ -44,11 +45,12 @@ import AdminDeals from './pages/admin/AdminDeals';
 
 function App() {
   return (
-    <AuthProvider>
-      <SocketProvider>
-        <NotificationProvider>
-          <Router>
-            <div className="min-h-screen flex flex-col bg-background text-foreground selection:bg-coral selection:text-white">
+    <ThemeProvider>
+      <AuthProvider>
+        <SocketProvider>
+          <NotificationProvider>
+            <Router>
+              <div className="min-h-screen flex flex-col bg-background text-foreground selection:bg-coral selection:text-white transition-colors duration-200">
               <Navbar />
               <div className="flex-1">
                 <Routes>
@@ -204,6 +206,7 @@ function App() {
         </NotificationProvider>
       </SocketProvider>
     </AuthProvider>
+    </ThemeProvider>
   );
 }
 

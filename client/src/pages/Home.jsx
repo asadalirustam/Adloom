@@ -76,20 +76,20 @@ const Home = () => {
   ];
 
   return (
-    <div className="space-y-24 pb-20">
+    <div className="space-y-20 sm:space-y-24 pb-20 transition-colors duration-200">
       {/* 1. Hero Section */}
-      <section className="relative pt-12 pb-20 sm:pt-20 sm:pb-28 overflow-hidden">
+      <section className="relative pt-10 pb-16 sm:pt-20 sm:pb-28 overflow-hidden">
         {/* Glow ambient background */}
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-7xl h-96 bg-gradient-to-b from-indigo-500/15 via-purple-500/5 to-transparent blur-3xl pointer-events-none -z-10"></div>
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-7xl h-96 bg-gradient-to-b from-coral/10 via-coral/5 to-transparent blur-3xl pointer-events-none -z-10"></div>
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           {/* Top Pill Announcement */}
           <motion.div
             initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
-            className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full glass-card border border-indigo-500/30 text-indigo-300 text-xs font-semibold mb-8 shadow-glow-sm"
+            className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full glass-card border border-coral/30 text-coral text-xs font-semibold mb-6 sm:mb-8 shadow-sm"
           >
-            <Sparkles className="w-3.5 h-3.5 text-indigo-400" />
+            <Sparkles className="w-3.5 h-3.5" />
             <span>The Premier Influencer Marketing & Brand Promotion Engine</span>
           </motion.div>
 
@@ -98,10 +98,10 @@ const Home = () => {
             initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.1 }}
-            className="text-4xl sm:text-6xl lg:text-7xl font-extrabold text-white tracking-tight leading-[1.1] max-w-4xl mx-auto"
+            className="text-3xl sm:text-5xl lg:text-7xl font-extrabold text-foreground tracking-tight leading-[1.15] max-w-4xl mx-auto font-sans"
           >
             Scale Your Brand with{' '}
-            <span className="gradient-text">Hyper-Targeted</span> Creator Deals
+            <span className="gradient-text font-serif italic">Hyper-Targeted</span> Creator Deals
           </motion.h1>
 
           {/* Subtitle */}
@@ -109,7 +109,7 @@ const Home = () => {
             initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2 }}
-            className="mt-6 text-base sm:text-lg text-slate-300 max-w-2xl mx-auto leading-relaxed"
+            className="mt-6 text-sm sm:text-lg text-muted-foreground max-w-2xl mx-auto leading-relaxed"
           >
             Connect directly with verified tech reviewers, food vloggers, lifestyle influencers, and digital talent. Post campaign briefs, hire with milestone escrow protection, and track deliverables in real time.
           </motion.p>
@@ -120,21 +120,21 @@ const Home = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.3 }}
             onSubmit={handleHeroSearch}
-            className="mt-10 max-w-2xl mx-auto flex flex-col sm:flex-row items-center gap-2 p-2 rounded-2xl glass-card border border-slate-700/80 shadow-2xl"
+            className="mt-8 sm:mt-10 max-w-2xl mx-auto flex flex-col sm:flex-row items-center gap-2 p-2 rounded-2xl glass-card border border-border shadow-xl"
           >
             <div className="relative flex-1 w-full">
-              <Search className="w-5 h-5 text-slate-400 absolute left-4 top-1/2 -translate-y-1/2" />
+              <Search className="w-5 h-5 text-muted-foreground absolute left-4 top-1/2 -translate-y-1/2" />
               <input
                 type="text"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 placeholder="Search creators by niche, keyword, or platform..."
-                className="w-full pl-11 pr-4 py-3.5 rounded-xl bg-transparent text-sm text-white placeholder-slate-400 focus:outline-none"
+                className="w-full pl-11 pr-4 py-3.5 rounded-xl bg-transparent text-sm text-foreground placeholder-muted-foreground focus:outline-none"
               />
             </div>
             <button
               type="submit"
-              className="w-full sm:w-auto px-6 py-3.5 rounded-xl bg-gradient-to-r from-indigo-600 via-purple-600 to-indigo-600 hover:from-indigo-500 hover:to-purple-500 text-white font-bold text-sm shadow-lg shadow-indigo-600/30 flex items-center justify-center gap-2 transition"
+              className="w-full sm:w-auto px-6 py-3.5 rounded-xl bg-coral hover:bg-coral-600 text-white font-bold text-sm shadow-lg shadow-coral/25 flex items-center justify-center gap-2 transition"
             >
               <span>Find Creators</span>
               <ArrowRight className="w-4 h-4" />
@@ -142,22 +142,22 @@ const Home = () => {
           </motion.form>
 
           {/* Key Value Metric Badges */}
-          <div className="mt-14 grid grid-cols-2 md:grid-cols-4 gap-4 max-w-4xl mx-auto">
-            <div className="p-4 rounded-2xl glass-card border border-slate-800 text-center">
-              <div className="text-2xl sm:text-3xl font-extrabold text-white">45,000+</div>
-              <div className="text-xs text-slate-400 font-medium mt-1">Total Creator Reach</div>
+          <div className="mt-12 sm:mt-14 grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4 max-w-4xl mx-auto">
+            <div className="p-4 rounded-2xl glass-card border border-border text-center">
+              <div className="text-2xl sm:text-3xl font-extrabold text-foreground">45,000+</div>
+              <div className="text-xs text-muted-foreground font-medium mt-1">Total Creator Reach</div>
             </div>
-            <div className="p-4 rounded-2xl glass-card border border-slate-800 text-center">
-              <div className="text-2xl sm:text-3xl font-extrabold text-emerald-400">$100%</div>
-              <div className="text-xs text-slate-400 font-medium mt-1">Escrow Protected Funds</div>
+            <div className="p-4 rounded-2xl glass-card border border-border text-center">
+              <div className="text-2xl sm:text-3xl font-extrabold text-emerald-600 dark:text-emerald-400">100%</div>
+              <div className="text-xs text-muted-foreground font-medium mt-1">Escrow Protected Funds</div>
             </div>
-            <div className="p-4 rounded-2xl glass-card border border-slate-800 text-center">
-              <div className="text-2xl sm:text-3xl font-extrabold text-indigo-400">4.9 / 5.0</div>
-              <div className="text-xs text-slate-400 font-medium mt-1">Average Campaign Rating</div>
+            <div className="p-4 rounded-2xl glass-card border border-border text-center">
+              <div className="text-2xl sm:text-3xl font-extrabold text-coral">4.9 / 5.0</div>
+              <div className="text-xs text-muted-foreground font-medium mt-1">Average Campaign Rating</div>
             </div>
-            <div className="p-4 rounded-2xl glass-card border border-slate-800 text-center">
-              <div className="text-2xl sm:text-3xl font-extrabold text-purple-400">&lt; 24h</div>
-              <div className="text-xs text-slate-400 font-medium mt-1">Avg Proposal Turnaround</div>
+            <div className="p-4 rounded-2xl glass-card border border-border text-center">
+              <div className="text-2xl sm:text-3xl font-extrabold text-purple-600 dark:text-purple-400">&lt; 24h</div>
+              <div className="text-xs text-muted-foreground font-medium mt-1">Avg Proposal Turnaround</div>
             </div>
           </div>
         </div>
@@ -167,36 +167,36 @@ const Home = () => {
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-8">
           <div>
-            <div className="text-xs font-bold text-indigo-400 uppercase tracking-wider mb-1">
+            <div className="text-xs font-bold text-coral uppercase tracking-wider mb-1">
               Explore Niches
             </div>
-            <h2 className="text-2xl sm:text-3xl font-bold text-white tracking-tight">
+            <h2 className="text-2xl sm:text-3xl font-bold text-foreground tracking-tight">
               Browse by Industry & Specialization
             </h2>
           </div>
           <Link
             to="/creators"
-            className="inline-flex items-center gap-1.5 text-xs font-semibold text-indigo-400 hover:text-indigo-300 transition"
+            className="inline-flex items-center gap-1.5 text-xs font-semibold text-coral hover:text-coral-600 transition"
           >
             <span>View all categories</span>
             <ChevronRight className="w-4 h-4" />
           </Link>
         </div>
 
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 sm:gap-4">
           {categories.map((cat) => (
             <Link
               key={cat.name}
               to={`/creators?category=${encodeURIComponent(cat.name)}`}
-              className="glass-card glass-card-hover rounded-2xl p-5 border border-slate-800 text-center flex flex-col items-center justify-center group"
+              className="glass-card glass-card-hover rounded-2xl p-4 sm:p-5 border border-border text-center flex flex-col items-center justify-center group"
             >
-              <div className="text-3xl mb-3 group-hover:scale-110 transition duration-200">
+              <div className="text-2xl sm:text-3xl mb-2 sm:mb-3 group-hover:scale-110 transition duration-200">
                 {cat.icon}
               </div>
-              <h3 className="font-bold text-white text-xs group-hover:text-indigo-400 transition">
+              <h3 className="font-bold text-foreground text-xs group-hover:text-coral transition">
                 {cat.name}
               </h3>
-              <span className="text-[11px] text-slate-400 mt-1">{cat.count}</span>
+              <span className="text-[11px] text-muted-foreground mt-1">{cat.count}</span>
             </Link>
           ))}
         </div>
@@ -206,16 +206,16 @@ const Home = () => {
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-8">
           <div>
-            <div className="text-xs font-bold text-purple-400 uppercase tracking-wider mb-1">
+            <div className="text-xs font-bold text-coral uppercase tracking-wider mb-1">
               Top Rated Talent
             </div>
-            <h2 className="text-2xl sm:text-3xl font-bold text-white tracking-tight">
+            <h2 className="text-2xl sm:text-3xl font-bold text-foreground tracking-tight">
               Featured Verified Creators
             </h2>
           </div>
           <Link
             to="/creators"
-            className="inline-flex items-center gap-1.5 text-xs font-semibold text-indigo-400 hover:text-indigo-300 transition"
+            className="inline-flex items-center gap-1.5 text-xs font-semibold text-coral hover:text-coral-600 transition"
           >
             <span>Explore all talent</span>
             <ChevronRight className="w-4 h-4" />
@@ -223,13 +223,13 @@ const Home = () => {
         </div>
 
         {loadingCreators ? (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {[1, 2, 3, 4].map((n) => (
               <CreatorCardSkeleton key={n} />
             ))}
           </div>
         ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {featuredCreators.map((creator) => (
               <CreatorCard key={creator._id} creator={creator} />
             ))}
@@ -239,36 +239,36 @@ const Home = () => {
 
       {/* 4. How It Works Section */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="rounded-3xl glass-card border border-slate-800 p-8 sm:p-12">
+        <div className="rounded-3xl glass-card border border-border p-6 sm:p-12">
           <div className="text-center max-w-2xl mx-auto mb-10">
-            <div className="text-xs font-bold text-indigo-400 uppercase tracking-wider mb-1">
+            <div className="text-xs font-bold text-coral uppercase tracking-wider mb-1">
               Frictionless Process
             </div>
-            <h2 className="text-2xl sm:text-3xl font-bold text-white tracking-tight">
+            <h2 className="text-2xl sm:text-3xl font-bold text-foreground tracking-tight">
               How Promotion Deals Work on Adloom
             </h2>
-            <p className="text-xs sm:text-sm text-slate-400 mt-2">
+            <p className="text-xs sm:text-sm text-muted-foreground mt-2">
               Transparent, milestone-based collaboration with built-in chat, delivery validation, and escrow protection.
             </p>
 
             {/* Toggle Switcher: Brands vs Creators */}
-            <div className="mt-6 inline-flex p-1 rounded-2xl bg-slate-900 border border-slate-800">
+            <div className="mt-6 inline-flex p-1 rounded-2xl bg-secondary border border-border">
               <button
                 onClick={() => setHowItWorksTab('brands')}
-                className={`px-5 py-2 rounded-xl text-xs font-bold transition ${
+                className={`px-4 sm:px-5 py-2 rounded-xl text-xs font-bold transition ${
                   howItWorksTab === 'brands'
-                    ? 'bg-indigo-600 text-white shadow-sm'
-                    : 'text-slate-400 hover:text-slate-200'
+                    ? 'bg-coral text-white shadow-sm'
+                    : 'text-muted-foreground hover:text-foreground'
                 }`}
               >
                 For Businesses & Brands
               </button>
               <button
                 onClick={() => setHowItWorksTab('creators')}
-                className={`px-5 py-2 rounded-xl text-xs font-bold transition ${
+                className={`px-4 sm:px-5 py-2 rounded-xl text-xs font-bold transition ${
                   howItWorksTab === 'creators'
-                    ? 'bg-indigo-600 text-white shadow-sm'
-                    : 'text-slate-400 hover:text-slate-200'
+                    ? 'bg-coral text-white shadow-sm'
+                    : 'text-muted-foreground hover:text-foreground'
                 }`}
               >
                 For Creators & Influencers
@@ -278,85 +278,85 @@ const Home = () => {
 
           {/* Workflow Steps */}
           {howItWorksTab === 'brands' ? (
-            <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-              <div className="p-5 rounded-2xl bg-slate-900/60 border border-slate-800">
-                <div className="w-10 h-10 rounded-xl bg-indigo-500/10 text-indigo-400 border border-indigo-500/20 flex items-center justify-center font-bold text-sm mb-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6">
+              <div className="p-5 rounded-2xl bg-card border border-border">
+                <div className="w-10 h-10 rounded-xl bg-coral/15 text-coral border border-coral/30 flex items-center justify-center font-bold text-sm mb-4">
                   01
                 </div>
-                <h3 className="font-bold text-white text-sm mb-1.5">Post Campaign Brief</h3>
-                <p className="text-xs text-slate-400 leading-relaxed">
+                <h3 className="font-bold text-foreground text-sm mb-1.5">Post Campaign Brief</h3>
+                <p className="text-xs text-muted-foreground leading-relaxed">
                   Specify your product details, preferred platforms (YouTube, IG, TikTok), budget range, and required deliverables.
                 </p>
               </div>
 
-              <div className="p-5 rounded-2xl bg-slate-900/60 border border-slate-800">
-                <div className="w-10 h-10 rounded-xl bg-purple-500/10 text-purple-400 border border-purple-500/20 flex items-center justify-center font-bold text-sm mb-4">
+              <div className="p-5 rounded-2xl bg-card border border-border">
+                <div className="w-10 h-10 rounded-xl bg-purple-500/15 text-purple-600 dark:text-purple-400 border border-purple-500/30 flex items-center justify-center font-bold text-sm mb-4">
                   02
                 </div>
-                <h3 className="font-bold text-white text-sm mb-1.5">Receive Pitches or Hire</h3>
-                <p className="text-xs text-slate-400 leading-relaxed">
+                <h3 className="font-bold text-foreground text-sm mb-1.5">Receive Pitches or Hire</h3>
+                <p className="text-xs text-muted-foreground leading-relaxed">
                   Review creative proposals from qualified creators or browse our directory to send instant direct custom offers.
                 </p>
               </div>
 
-              <div className="p-5 rounded-2xl bg-slate-900/60 border border-slate-800">
-                <div className="w-10 h-10 rounded-xl bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 flex items-center justify-center font-bold text-sm mb-4">
+              <div className="p-5 rounded-2xl bg-card border border-border">
+                <div className="w-10 h-10 rounded-xl bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 border border-emerald-500/30 flex items-center justify-center font-bold text-sm mb-4">
                   03
                 </div>
-                <h3 className="font-bold text-white text-sm mb-1.5">Escrow Safe Payment</h3>
-                <p className="text-xs text-slate-400 leading-relaxed">
+                <h3 className="font-bold text-foreground text-sm mb-1.5">Escrow Safe Payment</h3>
+                <p className="text-xs text-muted-foreground leading-relaxed">
                   Deal contract funds are held securely in Adloom Escrow while the creator films and produces your campaign content.
                 </p>
               </div>
 
-              <div className="p-5 rounded-2xl bg-slate-900/60 border border-slate-800">
-                <div className="w-10 h-10 rounded-xl bg-amber-500/10 text-amber-400 border border-amber-500/20 flex items-center justify-center font-bold text-sm mb-4">
+              <div className="p-5 rounded-2xl bg-card border border-border">
+                <div className="w-10 h-10 rounded-xl bg-amber-500/15 text-amber-600 dark:text-amber-400 border border-amber-500/30 flex items-center justify-center font-bold text-sm mb-4">
                   04
                 </div>
-                <h3 className="font-bold text-white text-sm mb-1.5">Approve & Release</h3>
-                <p className="text-xs text-slate-400 leading-relaxed">
+                <h3 className="font-bold text-foreground text-sm mb-1.5">Approve & Release</h3>
+                <p className="text-xs text-muted-foreground leading-relaxed">
                   Inspect live published links, approve deliverable quality, release funds, and exchange verified reviews.
                 </p>
               </div>
             </div>
           ) : (
-            <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-              <div className="p-5 rounded-2xl bg-slate-900/60 border border-slate-800">
-                <div className="w-10 h-10 rounded-xl bg-indigo-500/10 text-indigo-400 border border-indigo-500/20 flex items-center justify-center font-bold text-sm mb-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6">
+              <div className="p-5 rounded-2xl bg-card border border-border">
+                <div className="w-10 h-10 rounded-xl bg-coral/15 text-coral border border-coral/30 flex items-center justify-center font-bold text-sm mb-4">
                   01
                 </div>
-                <h3 className="font-bold text-white text-sm mb-1.5">Build Creator Profile</h3>
-                <p className="text-xs text-slate-400 leading-relaxed">
+                <h3 className="font-bold text-foreground text-sm mb-1.5">Build Creator Profile</h3>
+                <p className="text-xs text-muted-foreground leading-relaxed">
                   Highlight your social handles, verified follower reach, portfolio sample reels, and transparent 3-tier pricing packages.
                 </p>
               </div>
 
-              <div className="p-5 rounded-2xl bg-slate-900/60 border border-slate-800">
-                <div className="w-10 h-10 rounded-xl bg-purple-500/10 text-purple-400 border border-purple-500/20 flex items-center justify-center font-bold text-sm mb-4">
+              <div className="p-5 rounded-2xl bg-card border border-border">
+                <div className="w-10 h-10 rounded-xl bg-purple-500/15 text-purple-600 dark:text-purple-400 border border-purple-500/30 flex items-center justify-center font-bold text-sm mb-4">
                   02
                 </div>
-                <h3 className="font-bold text-white text-sm mb-1.5">Pitch Open Campaigns</h3>
-                <p className="text-xs text-slate-400 leading-relaxed">
+                <h3 className="font-bold text-foreground text-sm mb-1.5">Pitch Open Campaigns</h3>
+                <p className="text-xs text-muted-foreground leading-relaxed">
                   Browse open brand requirements, pitch your creative angle and custom pricing, or accept incoming direct brand offers.
                 </p>
               </div>
 
-              <div className="p-5 rounded-2xl bg-slate-900/60 border border-slate-800">
-                <div className="w-10 h-10 rounded-xl bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 flex items-center justify-center font-bold text-sm mb-4">
+              <div className="p-5 rounded-2xl bg-card border border-border">
+                <div className="w-10 h-10 rounded-xl bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 border border-emerald-500/30 flex items-center justify-center font-bold text-sm mb-4">
                   03
                 </div>
-                <h3 className="font-bold text-white text-sm mb-1.5">Create Deliverables</h3>
-                <p className="text-xs text-slate-400 leading-relaxed">
+                <h3 className="font-bold text-foreground text-sm mb-1.5">Create Deliverables</h3>
+                <p className="text-xs text-muted-foreground leading-relaxed">
                   Chat with the brand in our real-time messaging room, confirm key talking points, and produce high-impact content.
                 </p>
               </div>
 
-              <div className="p-5 rounded-2xl bg-slate-900/60 border border-slate-800">
-                <div className="w-10 h-10 rounded-xl bg-amber-500/10 text-amber-400 border border-amber-500/20 flex items-center justify-center font-bold text-sm mb-4">
+              <div className="p-5 rounded-2xl bg-card border border-border">
+                <div className="w-10 h-10 rounded-xl bg-amber-500/15 text-amber-600 dark:text-amber-400 border border-amber-500/30 flex items-center justify-center font-bold text-sm mb-4">
                   04
                 </div>
-                <h3 className="font-bold text-white text-sm mb-1.5">Get Paid Instantly</h3>
-                <p className="text-xs text-slate-400 leading-relaxed">
+                <h3 className="font-bold text-foreground text-sm mb-1.5">Get Paid Instantly</h3>
+                <p className="text-xs text-muted-foreground leading-relaxed">
                   Submit proof links for review. Once approved, escrowed funds are released directly to your creator balance.
                 </p>
               </div>
@@ -369,16 +369,16 @@ const Home = () => {
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-8">
           <div>
-            <div className="text-xs font-bold text-emerald-400 uppercase tracking-wider mb-1">
+            <div className="text-xs font-bold text-emerald-600 dark:text-emerald-400 uppercase tracking-wider mb-1">
               Active Brand Briefs
             </div>
-            <h2 className="text-2xl sm:text-3xl font-bold text-white tracking-tight">
+            <h2 className="text-2xl sm:text-3xl font-bold text-foreground tracking-tight">
               Open Promotion Opportunities
             </h2>
           </div>
           <Link
             to="/requirements"
-            className="inline-flex items-center gap-1.5 text-xs font-semibold text-indigo-400 hover:text-indigo-300 transition"
+            className="inline-flex items-center gap-1.5 text-xs font-semibold text-coral hover:text-coral-600 transition"
           >
             <span>Browse all open campaigns</span>
             <ChevronRight className="w-4 h-4" />
@@ -403,77 +403,77 @@ const Home = () => {
       {/* 6. Testimonials Section */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center max-w-xl mx-auto mb-10">
-          <div className="text-xs font-bold text-indigo-400 uppercase tracking-wider mb-1">
+          <div className="text-xs font-bold text-coral uppercase tracking-wider mb-1">
             Success Stories
           </div>
-          <h2 className="text-2xl sm:text-3xl font-bold text-white tracking-tight">
+          <h2 className="text-2xl sm:text-3xl font-bold text-foreground tracking-tight">
             Trusted by Creators & Brands
           </h2>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          <div className="glass-card rounded-2xl p-6 border border-slate-800 space-y-4">
-            <div className="flex items-center gap-1 text-amber-400">
+          <div className="glass-card rounded-2xl p-6 border border-border space-y-4">
+            <div className="flex items-center gap-1 text-amber-500">
               {[1, 2, 3, 4, 5].map((s) => (
-                <Star key={s} className="w-4 h-4 fill-amber-400" />
+                <Star key={s} className="w-4 h-4 fill-amber-500" />
               ))}
             </div>
-            <p className="text-xs text-slate-300 leading-relaxed italic">
+            <p className="text-xs text-muted-foreground leading-relaxed italic">
               "Adloom simplified our product launch entirely. We found 3 specialized tech creators within 24 hours, secured the contracts via escrow, and saw a 320% ROI on our headphone launch."
             </p>
-            <div className="flex items-center gap-3 pt-2 border-t border-slate-800">
+            <div className="flex items-center gap-3 pt-2 border-t border-border">
               <img
                 src="https://images.unsplash.com/photo-1572021335469-31706a17aaef?w=80"
                 alt="Apex Audio"
                 className="w-9 h-9 rounded-xl object-cover"
               />
               <div>
-                <div className="text-xs font-bold text-white">Apex Audio Technologies</div>
-                <div className="text-[10px] text-slate-400">Brand Partner (San Francisco)</div>
+                <div className="text-xs font-bold text-foreground">Apex Audio Technologies</div>
+                <div className="text-[10px] text-muted-foreground">Brand Partner (San Francisco)</div>
               </div>
             </div>
           </div>
 
-          <div className="glass-card rounded-2xl p-6 border border-slate-800 space-y-4">
-            <div className="flex items-center gap-1 text-amber-400">
+          <div className="glass-card rounded-2xl p-6 border border-border space-y-4">
+            <div className="flex items-center gap-1 text-amber-500">
               {[1, 2, 3, 4, 5].map((s) => (
-                <Star key={s} className="w-4 h-4 fill-amber-400" />
+                <Star key={s} className="w-4 h-4 fill-amber-500" />
               ))}
             </div>
-            <p className="text-xs text-slate-300 leading-relaxed italic">
+            <p className="text-xs text-muted-foreground leading-relaxed italic">
               "As a full-time food vlogger, managing DMs and unpaid invoices was exhausting. On Adloom, brands book my exact package tiers and the money is guaranteed before I even start cooking."
             </p>
-            <div className="flex items-center gap-3 pt-2 border-t border-slate-800">
+            <div className="flex items-center gap-3 pt-2 border-t border-border">
               <img
                 src="https://images.unsplash.com/photo-1517841905240-472988babdf9?w=80"
                 alt="Maya Chen"
                 className="w-9 h-9 rounded-xl object-cover"
               />
               <div>
-                <div className="text-xs font-bold text-white">Maya Chen</div>
-                <div className="text-[10px] text-purple-400 font-medium">Food & Recipe Creator (520k Reach)</div>
+                <div className="text-xs font-bold text-foreground">Maya Chen</div>
+                <div className="text-[10px] text-purple-600 dark:text-purple-400 font-medium">Food & Recipe Creator (520k Reach)</div>
               </div>
             </div>
           </div>
 
-          <div className="glass-card rounded-2xl p-6 border border-slate-800 space-y-4">
-            <div className="flex items-center gap-1 text-amber-400">
+          <div className="glass-card rounded-2xl p-6 border border-border space-y-4">
+            <div className="flex items-center gap-1 text-amber-500">
               {[1, 2, 3, 4, 5].map((s) => (
-                <Star key={s} className="w-4 h-4 fill-amber-400" />
+                <Star key={s} className="w-4 h-4 fill-amber-500" />
               ))}
             </div>
-            <p className="text-xs text-slate-300 leading-relaxed italic">
+            <p className="text-xs text-muted-foreground leading-relaxed italic">
               "The structured package tiers and clear deliverable proofs eliminated endless back-and-forth emails. We booked over 15 influencer collaborations this quarter alone."
             </p>
-            <div className="flex items-center gap-3 pt-2 border-t border-slate-800">
+            <div className="flex items-center gap-3 pt-2 border-t border-border">
               <img
                 src="https://images.unsplash.com/photo-1556761175-5973dc0f32e7?w=80"
                 alt="Verde Glow"
                 className="w-9 h-9 rounded-xl object-cover"
               />
               <div>
-                <div className="text-xs font-bold text-white">Verde Glow Cosmetics</div>
-                <div className="text-[10px] text-slate-400">Beauty Brand (London)</div>
+                <div className="text-xs font-bold text-foreground">Verde Glow Cosmetics</div>
+                <div className="text-[10px] text-muted-foreground">Beauty Brand (London)</div>
               </div>
             </div>
           </div>
@@ -482,24 +482,24 @@ const Home = () => {
 
       {/* 7. Call To Action Banner */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="relative rounded-3xl overflow-hidden p-8 sm:p-14 bg-gradient-to-r from-indigo-900/90 via-purple-900/80 to-indigo-950/90 border border-indigo-500/30 text-center shadow-2xl">
+        <div className="relative rounded-3xl overflow-hidden p-8 sm:p-14 bg-gradient-to-r from-coral-700 via-coral-600 to-coral-800 text-center shadow-2xl text-white">
           <div className="relative z-10 max-w-2xl mx-auto space-y-6">
-            <h2 className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
+            <h2 className="text-2xl sm:text-4xl font-extrabold text-white tracking-tight">
               Ready to Launch Your Next Viral Campaign?
             </h2>
-            <p className="text-sm text-indigo-200 leading-relaxed">
+            <p className="text-xs sm:text-sm text-coral-100 leading-relaxed">
               Join thousands of creators and growth-focused businesses scaling through authentic promotional partnerships today.
             </p>
             <div className="flex flex-col sm:flex-row items-center justify-center gap-3 pt-2">
               <Link
                 to="/register?role=business"
-                className="w-full sm:w-auto px-6 py-3.5 rounded-xl bg-white text-indigo-950 font-extrabold text-xs shadow-lg hover:bg-slate-100 transition"
+                className="w-full sm:w-auto px-6 py-3.5 rounded-xl bg-white text-coral-900 font-extrabold text-xs shadow-lg hover:bg-slate-100 transition"
               >
                 Post a Promotion Campaign
               </Link>
               <Link
                 to="/register?role=creator"
-                className="w-full sm:w-auto px-6 py-3.5 rounded-xl bg-indigo-600/60 hover:bg-indigo-600 text-white font-bold text-xs border border-indigo-400/40 transition"
+                className="w-full sm:w-auto px-6 py-3.5 rounded-xl bg-coral-900/60 hover:bg-coral-900 text-white font-bold text-xs border border-white/30 transition"
               >
                 Join as a Creator
               </Link>

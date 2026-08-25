@@ -27,7 +27,7 @@ const Modal = ({ isOpen, onClose, title, children, maxWidth = 'max-w-xl' }) => {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             onClick={onClose}
-            className="fixed inset-0 bg-slate-950/80 backdrop-blur-sm"
+            className="fixed inset-0 bg-black/70 backdrop-blur-sm"
           />
 
           {/* Modal Card */}
@@ -36,14 +36,15 @@ const Modal = ({ isOpen, onClose, title, children, maxWidth = 'max-w-xl' }) => {
             animate={{ scale: 1, opacity: 1, y: 0 }}
             exit={{ scale: 0.95, opacity: 0, y: 20 }}
             transition={{ type: 'spring', damping: 25, stiffness: 300 }}
-            className={`relative w-full ${maxWidth} bg-[#111726] border border-slate-700/70 rounded-2xl shadow-2xl overflow-hidden z-10 my-8`}
+            className={`relative w-full ${maxWidth} bg-card border border-border text-card-foreground rounded-2xl shadow-2xl overflow-hidden z-10 my-8`}
           >
             {/* Header */}
-            <div className="flex items-center justify-between px-6 py-4 border-b border-slate-800/80 bg-slate-900/50">
-              <h3 className="text-lg font-semibold text-white">{title}</h3>
+            <div className="flex items-center justify-between px-6 py-4 border-b border-border bg-card">
+              <h3 className="text-base sm:text-lg font-bold text-foreground">{title}</h3>
               <button
                 onClick={onClose}
-                className="p-1.5 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800 transition"
+                aria-label="Close modal"
+                className="p-1.5 rounded-lg text-muted-foreground hover:text-foreground hover:bg-accent transition"
               >
                 <X className="w-5 h-5" />
               </button>
