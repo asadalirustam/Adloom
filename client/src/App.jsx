@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import { ThemeProvider } from './context/ThemeContext';
 import { AuthProvider } from './context/AuthContext';
 import { SocketProvider } from './context/SocketContext';
@@ -188,7 +188,7 @@ function App() {
                   <Route path="*" element={<Home />} />
                 </Routes>
               </div>
-              <Footer />
+              <ConditionalFooter />
               <Toaster
                 position="bottom-right"
                 toastOptions={{
@@ -209,5 +209,17 @@ function App() {
     </ThemeProvider>
   );
 }
+
+const ConditionalFooter = () => {
+  const location = useLocation();
+  const isWorkspace =
+    location.pathname.startsWith('/creator') ||
+    location.pathname.startsWith('/business') ||
+    location.pathname.startsWith('/admin') ||
+    location.pathname.startsWith('/messages');
+
+  if (isWorkspace) return null;
+  return <Footer />;
+};
 
 export default App;

@@ -18,6 +18,9 @@ import {
   ShieldCheck,
   ChevronDown,
   CheckCircle2,
+  Layers,
+  Users,
+  FileText,
 } from 'lucide-react';
 
 const Navbar = () => {
@@ -43,15 +46,26 @@ const Navbar = () => {
     return '/';
   };
 
+  const handleDemoLogin = async (role) => {
+    setDemoMenuOpen(false);
+    setMobileMenuOpen(false);
+    const res = await quickDemoLogin(role);
+    if (res?.success) {
+      if (role === 'creator') navigate('/creator/dashboard');
+      else if (role === 'business') navigate('/business/dashboard');
+      else if (role === 'admin') navigate('/admin/dashboard');
+    }
+  };
+
   const isActive = (path) => location.pathname === path;
 
   return (
     <header className="sticky top-0 z-40 w-full border-b border-border bg-background/85 backdrop-blur-xl transition-colors duration-200">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
-          {/* Brand Logo */}
-          <div className="flex items-center gap-8">
-            <Link to="/" className="flex items-center gap-2.5 group">
+          {/* Brand Logo & Persona Detail */}
+          <div className="flex items-center gap-4 sm:gap-6">
+            <Link to={isAuthenticated ? getDashboardLink() : '/'} className="flex items-center gap-2.5 group">
               <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-coral via-coral-400 to-amber-500 flex items-center justify-center text-white shadow-lg shadow-coral/25 group-hover:scale-105 transition">
                 <Sparkles className="w-5 h-5" />
               </div>
@@ -66,39 +80,194 @@ const Navbar = () => {
               </div>
             </Link>
 
+            {/* Active Persona Tag (Logged-in person detail) */}
+            {isAuthenticated && (
+              <div className="hidden lg:flex items-center gap-2 px-3 py-1 rounded-full bg-accent/60 border border-border text-xs">
+                <span
+                  className={`w-2 h-2 rounded-full ${
+                    isCreator ? 'bg-purple-500' : isBusiness ? 'bg-emerald-500' : 'bg-amber-500'
+                  }`}
+                ></span>
+                <span className="font-bold text-foreground max-w-[140px] truncate">{user?.name}</span>
+                <span className="text-[10px] text-coral font-semibold uppercase tracking-wider">
+                  • {user?.role}
+                </span>
+              </div>
+            )}
+
             {/* Desktop Navigation Links */}
-            <nav className="hidden md:flex items-center gap-1">
-              <Link
-                to="/creators"
-                className={`px-3.5 py-2 rounded-lg text-sm font-medium transition ${
-                  isActive('/creators')
-                    ? 'text-foreground bg-accent font-semibold shadow-sm'
-                    : 'text-muted-foreground hover:text-foreground hover:bg-accent/50'
-                }`}
-              >
-                Find Creators
-              </Link>
-              <Link
-                to="/requirements"
-                className={`px-3.5 py-2 rounded-lg text-sm font-medium transition ${
-                  isActive('/requirements')
-                    ? 'text-foreground bg-accent font-semibold shadow-sm'
-                    : 'text-muted-foreground hover:text-foreground hover:bg-accent/50'
-                }`}
-              >
-                Brand Campaigns
-              </Link>
-              <Link
-                to="/how-it-works"
-                className={`px-3.5 py-2 rounded-lg text-sm font-medium transition ${
-                  isActive('/how-it-works')
-                    ? 'text-foreground bg-accent font-semibold shadow-sm'
-                    : 'text-muted-foreground hover:text-foreground hover:bg-accent/50'
-                }`}
-              >
-                How It Works
-              </Link>
-            </nav>
+            {!isAuthenticated ? (
+              <nav className="hidden md:flex items-center gap-1">
+                <Link
+                  to="/creators"
+                  className={`px-3.5 py-2 rounded-lg text-sm font-medium transition ${
+                    isActive('/creators')
+                      ? 'text-foreground bg-accent font-semibold shadow-sm'
+                      : 'text-muted-foreground hover:text-foreground hover:bg-accent/50'
+                  }`}
+                >
+                  Find Creators
+                </Link>
+                <Link
+                  to="/requirements"
+                  className={`px-3.5 py-2 rounded-lg text-sm font-medium transition ${
+                    isActive('/requirements')
+                      ? 'text-foreground bg-accent font-semibold shadow-sm'
+                      : 'text-muted-foreground hover:text-foreground hover:bg-accent/50'
+                  }`}
+                >
+                  Brand Campaigns
+                </Link>
+                <Link
+                  to="/how-it-works"
+                  className={`px-3.5 py-2 rounded-lg text-sm font-medium transition ${
+                    isActive('/how-it-works')
+                      ? 'text-foreground bg-accent font-semibold shadow-sm'
+                      : 'text-muted-foreground hover:text-foreground hover:bg-accent/50'
+                  }`}
+                >
+                  How It Works
+                </Link>
+              </nav>
+            ) : (
+              <nav className="hidden md:flex items-center gap-1.5">
+                {isCreator && (
+                  <>
+                    <Link
+                      to="/creator/dashboard"
+                      className={`px-3 py-1.5 rounded-lg text-xs font-semibold flex items-center gap-1.5 transition ${
+                        isActive('/creator/dashboard')
+                          ? 'text-coral bg-coral/10 border border-coral/30 shadow-sm'
+                          : 'text-muted-foreground hover:text-foreground hover:bg-accent'
+                      }`}
+                    >
+                      <LayoutDashboard className="w-3.5 h-3.5 text-coral" />
+                      <span>Dashboard</span>
+                    </Link>
+                    <Link
+                      to="/creator/deals"
+                      className={`px-3 py-1.5 rounded-lg text-xs font-semibold flex items-center gap-1.5 transition ${
+                        isActive('/creator/deals')
+                          ? 'text-purple-600 dark:text-purple-400 bg-purple-500/10 border border-purple-500/30 shadow-sm'
+                          : 'text-muted-foreground hover:text-foreground hover:bg-accent'
+                      }`}
+                    >
+                      <Briefcase className="w-3.5 h-3.5 text-purple-500" />
+                      <span>Collaborations</span>
+                    </Link>
+                    <Link
+                      to="/requirements"
+                      className={`px-3 py-1.5 rounded-lg text-xs font-semibold flex items-center gap-1.5 transition ${
+                        isActive('/requirements')
+                          ? 'text-foreground bg-accent border border-border shadow-sm'
+                          : 'text-muted-foreground hover:text-foreground hover:bg-accent'
+                      }`}
+                    >
+                      <Layers className="w-3.5 h-3.5 text-emerald-500" />
+                      <span>Explore Campaigns</span>
+                    </Link>
+                    <Link
+                      to="/creator/edit-profile"
+                      className={`px-3 py-1.5 rounded-lg text-xs font-semibold flex items-center gap-1.5 transition ${
+                        isActive('/creator/edit-profile')
+                          ? 'text-emerald-600 dark:text-emerald-400 bg-emerald-500/10 border border-emerald-500/30 shadow-sm'
+                          : 'text-muted-foreground hover:text-foreground hover:bg-accent'
+                      }`}
+                    >
+                      <User className="w-3.5 h-3.5 text-emerald-500" />
+                      <span>My Profile</span>
+                    </Link>
+                  </>
+                )}
+
+                {isBusiness && (
+                  <>
+                    <Link
+                      to="/business/dashboard"
+                      className={`px-3 py-1.5 rounded-lg text-xs font-semibold flex items-center gap-1.5 transition ${
+                        isActive('/business/dashboard')
+                          ? 'text-coral bg-coral/10 border border-coral/30 shadow-sm'
+                          : 'text-muted-foreground hover:text-foreground hover:bg-accent'
+                      }`}
+                    >
+                      <LayoutDashboard className="w-3.5 h-3.5 text-coral" />
+                      <span>Dashboard</span>
+                    </Link>
+                    <Link
+                      to="/business/my-requirements"
+                      className={`px-3 py-1.5 rounded-lg text-xs font-semibold flex items-center gap-1.5 transition ${
+                        isActive('/business/my-requirements')
+                          ? 'text-purple-600 dark:text-purple-400 bg-purple-500/10 border border-purple-500/30 shadow-sm'
+                          : 'text-muted-foreground hover:text-foreground hover:bg-accent'
+                      }`}
+                    >
+                      <Briefcase className="w-3.5 h-3.5 text-purple-500" />
+                      <span>My Campaigns</span>
+                    </Link>
+                    <Link
+                      to="/business/deals"
+                      className={`px-3 py-1.5 rounded-lg text-xs font-semibold flex items-center gap-1.5 transition ${
+                        isActive('/business/deals')
+                          ? 'text-emerald-600 dark:text-emerald-400 bg-emerald-500/10 border border-emerald-500/30 shadow-sm'
+                          : 'text-muted-foreground hover:text-foreground hover:bg-accent'
+                      }`}
+                    >
+                      <CheckCircle2 className="w-3.5 h-3.5 text-emerald-500" />
+                      <span>Active Deals</span>
+                    </Link>
+                    <Link
+                      to="/creators"
+                      className={`px-3 py-1.5 rounded-lg text-xs font-semibold flex items-center gap-1.5 transition ${
+                        isActive('/creators')
+                          ? 'text-foreground bg-accent border border-border shadow-sm'
+                          : 'text-muted-foreground hover:text-foreground hover:bg-accent'
+                      }`}
+                    >
+                      <Users className="w-3.5 h-3.5 text-coral" />
+                      <span>Find Creators</span>
+                    </Link>
+                  </>
+                )}
+
+                {isAdmin && (
+                  <>
+                    <Link
+                      to="/admin/dashboard"
+                      className={`px-3 py-1.5 rounded-lg text-xs font-semibold flex items-center gap-1.5 transition ${
+                        isActive('/admin/dashboard')
+                          ? 'text-coral bg-coral/10 border border-coral/30 shadow-sm'
+                          : 'text-muted-foreground hover:text-foreground hover:bg-accent'
+                      }`}
+                    >
+                      <LayoutDashboard className="w-3.5 h-3.5 text-coral" />
+                      <span>Admin Overview</span>
+                    </Link>
+                    <Link
+                      to="/admin/users"
+                      className={`px-3 py-1.5 rounded-lg text-xs font-semibold flex items-center gap-1.5 transition ${
+                        isActive('/admin/users')
+                          ? 'text-amber-600 dark:text-amber-400 bg-amber-500/10 border border-amber-500/30 shadow-sm'
+                          : 'text-muted-foreground hover:text-foreground hover:bg-accent'
+                      }`}
+                    >
+                      <ShieldCheck className="w-3.5 h-3.5 text-amber-500" />
+                      <span>User Directory</span>
+                    </Link>
+                    <Link
+                      to="/admin/deals"
+                      className={`px-3 py-1.5 rounded-lg text-xs font-semibold flex items-center gap-1.5 transition ${
+                        isActive('/admin/deals')
+                          ? 'text-purple-600 dark:text-purple-400 bg-purple-500/10 border border-purple-500/30 shadow-sm'
+                          : 'text-muted-foreground hover:text-foreground hover:bg-accent'
+                      }`}
+                    >
+                      <Briefcase className="w-3.5 h-3.5 text-purple-500" />
+                      <span>Deal Oversight</span>
+                    </Link>
+                  </>
+                )}
+              </nav>
+            )}
           </div>
 
           {/* Right Action Controls */}
@@ -118,39 +287,36 @@ const Navbar = () => {
               </button>
 
               {demoMenuOpen && (
-                <div className="absolute right-0 mt-2 w-48 rounded-xl glass-card border border-border shadow-2xl py-2 z-50 animate-in fade-in zoom-in-95 duration-150">
+                <div className="absolute right-0 mt-2 w-52 rounded-xl glass-card border border-border shadow-2xl py-2 z-50 animate-in fade-in zoom-in-95 duration-150">
                   <div className="px-3 py-1 text-[11px] font-semibold text-muted-foreground uppercase tracking-wider">
                     Switch Persona
                   </div>
                   <button
-                    onClick={() => {
-                      quickDemoLogin('creator');
-                      setDemoMenuOpen(false);
-                    }}
+                    onClick={() => handleDemoLogin('creator')}
                     className="w-full text-left px-3 py-2 text-xs font-medium text-foreground hover:bg-accent hover:text-coral flex items-center justify-between"
                   >
                     <span>Creator (Alex Vance)</span>
-                    <span className="text-[10px] px-1.5 py-0.5 rounded bg-purple-500/20 text-purple-600 dark:text-purple-300 font-semibold">Creator</span>
+                    <span className="text-[10px] px-1.5 py-0.5 rounded bg-purple-500/20 text-purple-600 dark:text-purple-300 font-semibold">
+                      Creator
+                    </span>
                   </button>
                   <button
-                    onClick={() => {
-                      quickDemoLogin('business');
-                      setDemoMenuOpen(false);
-                    }}
+                    onClick={() => handleDemoLogin('business')}
                     className="w-full text-left px-3 py-2 text-xs font-medium text-foreground hover:bg-accent hover:text-emerald-500 flex items-center justify-between"
                   >
                     <span>Business (Apex Audio)</span>
-                    <span className="text-[10px] px-1.5 py-0.5 rounded bg-emerald-500/20 text-emerald-600 dark:text-emerald-300 font-semibold">Brand</span>
+                    <span className="text-[10px] px-1.5 py-0.5 rounded bg-emerald-500/20 text-emerald-600 dark:text-emerald-300 font-semibold">
+                      Brand
+                    </span>
                   </button>
                   <button
-                    onClick={() => {
-                      quickDemoLogin('admin');
-                      setDemoMenuOpen(false);
-                    }}
+                    onClick={() => handleDemoLogin('admin')}
                     className="w-full text-left px-3 py-2 text-xs font-medium text-foreground hover:bg-accent hover:text-amber-500 flex items-center justify-between"
                   >
                     <span>Platform Admin</span>
-                    <span className="text-[10px] px-1.5 py-0.5 rounded bg-amber-500/20 text-amber-600 dark:text-amber-300 font-semibold">Admin</span>
+                    <span className="text-[10px] px-1.5 py-0.5 rounded bg-amber-500/20 text-amber-600 dark:text-amber-300 font-semibold">
+                      Admin
+                    </span>
                   </button>
                 </div>
               )}
@@ -400,58 +566,192 @@ const Navbar = () => {
       {/* Mobile Drawer */}
       {mobileMenuOpen && (
         <div className="md:hidden border-b border-border bg-card px-4 pt-2 pb-6 space-y-3 animate-in fade-in slide-in-from-top-2 duration-200">
-          <nav className="flex flex-col space-y-1">
-            <Link
-              to="/creators"
-              onClick={() => setMobileMenuOpen(false)}
-              className="px-3 py-2 rounded-lg text-sm font-medium text-foreground hover:bg-accent"
-            >
-              Find Creators
-            </Link>
-            <Link
-              to="/requirements"
-              onClick={() => setMobileMenuOpen(false)}
-              className="px-3 py-2 rounded-lg text-sm font-medium text-foreground hover:bg-accent"
-            >
-              Brand Campaigns
-            </Link>
-            <Link
-              to="/how-it-works"
-              onClick={() => setMobileMenuOpen(false)}
-              className="px-3 py-2 rounded-lg text-sm font-medium text-foreground hover:bg-accent"
-            >
-              How It Works
-            </Link>
-          </nav>
+          {!isAuthenticated ? (
+            <nav className="flex flex-col space-y-1">
+              <Link
+                to="/creators"
+                onClick={() => setMobileMenuOpen(false)}
+                className="px-3 py-2 rounded-lg text-sm font-medium text-foreground hover:bg-accent"
+              >
+                Find Creators
+              </Link>
+              <Link
+                to="/requirements"
+                onClick={() => setMobileMenuOpen(false)}
+                className="px-3 py-2 rounded-lg text-sm font-medium text-foreground hover:bg-accent"
+              >
+                Brand Campaigns
+              </Link>
+              <Link
+                to="/how-it-works"
+                onClick={() => setMobileMenuOpen(false)}
+                className="px-3 py-2 rounded-lg text-sm font-medium text-foreground hover:bg-accent"
+              >
+                How It Works
+              </Link>
+            </nav>
+          ) : (
+            <div className="space-y-3">
+              {/* Mobile Person Info Card */}
+              <div className="p-3 rounded-xl bg-accent/60 border border-border flex items-center gap-3">
+                <img
+                  src={user?.avatar || 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100'}
+                  alt={user?.name}
+                  className="w-9 h-9 rounded-lg object-cover ring-1 ring-coral/30"
+                />
+                <div className="min-w-0 flex-1">
+                  <div className="text-xs font-bold text-foreground truncate">{user?.name}</div>
+                  <div className="text-[10px] text-coral font-semibold uppercase">{user?.role} Account</div>
+                </div>
+              </div>
+
+              {/* Persona Navigation */}
+              <nav className="flex flex-col space-y-1">
+                <Link
+                  to={getDashboardLink()}
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="flex items-center gap-2.5 px-3 py-2 rounded-lg text-xs font-semibold text-foreground hover:bg-accent"
+                >
+                  <LayoutDashboard className="w-4 h-4 text-coral" />
+                  <span>Dashboard Overview</span>
+                </Link>
+
+                {isCreator && (
+                  <>
+                    <Link
+                      to="/creator/deals"
+                      onClick={() => setMobileMenuOpen(false)}
+                      className="flex items-center gap-2.5 px-3 py-2 rounded-lg text-xs font-semibold text-foreground hover:bg-accent"
+                    >
+                      <Briefcase className="w-4 h-4 text-purple-500" />
+                      <span>My Collaborations</span>
+                    </Link>
+                    <Link
+                      to="/requirements"
+                      onClick={() => setMobileMenuOpen(false)}
+                      className="flex items-center gap-2.5 px-3 py-2 rounded-lg text-xs font-semibold text-foreground hover:bg-accent"
+                    >
+                      <Layers className="w-4 h-4 text-emerald-500" />
+                      <span>Explore Campaigns</span>
+                    </Link>
+                    <Link
+                      to="/creator/edit-profile"
+                      onClick={() => setMobileMenuOpen(false)}
+                      className="flex items-center gap-2.5 px-3 py-2 rounded-lg text-xs font-semibold text-foreground hover:bg-accent"
+                    >
+                      <User className="w-4 h-4 text-emerald-500" />
+                      <span>Edit Public Profile</span>
+                    </Link>
+                  </>
+                )}
+
+                {isBusiness && (
+                  <>
+                    <Link
+                      to="/business/post-requirement"
+                      onClick={() => setMobileMenuOpen(false)}
+                      className="flex items-center gap-2.5 px-3 py-2 rounded-lg text-xs font-semibold text-coral hover:bg-accent"
+                    >
+                      <PlusCircle className="w-4 h-4 text-coral" />
+                      <span>Post New Campaign</span>
+                    </Link>
+                    <Link
+                      to="/business/my-requirements"
+                      onClick={() => setMobileMenuOpen(false)}
+                      className="flex items-center gap-2.5 px-3 py-2 rounded-lg text-xs font-semibold text-foreground hover:bg-accent"
+                    >
+                      <Briefcase className="w-4 h-4 text-purple-500" />
+                      <span>Manage Campaigns</span>
+                    </Link>
+                    <Link
+                      to="/business/deals"
+                      onClick={() => setMobileMenuOpen(false)}
+                      className="flex items-center gap-2.5 px-3 py-2 rounded-lg text-xs font-semibold text-foreground hover:bg-accent"
+                    >
+                      <CheckCircle2 className="w-4 h-4 text-emerald-500" />
+                      <span>Active Deals</span>
+                    </Link>
+                    <Link
+                      to="/creators"
+                      onClick={() => setMobileMenuOpen(false)}
+                      className="flex items-center gap-2.5 px-3 py-2 rounded-lg text-xs font-semibold text-foreground hover:bg-accent"
+                    >
+                      <Users className="w-4 h-4 text-coral" />
+                      <span>Find Creators</span>
+                    </Link>
+                  </>
+                )}
+
+                {isAdmin && (
+                  <>
+                    <Link
+                      to="/admin/users"
+                      onClick={() => setMobileMenuOpen(false)}
+                      className="flex items-center gap-2.5 px-3 py-2 rounded-lg text-xs font-semibold text-foreground hover:bg-accent"
+                    >
+                      <ShieldCheck className="w-4 h-4 text-amber-500" />
+                      <span>User Directory</span>
+                    </Link>
+                    <Link
+                      to="/admin/deals"
+                      onClick={() => setMobileMenuOpen(false)}
+                      className="flex items-center gap-2.5 px-3 py-2 rounded-lg text-xs font-semibold text-foreground hover:bg-accent"
+                    >
+                      <Briefcase className="w-4 h-4 text-purple-500" />
+                      <span>Deal Oversight</span>
+                    </Link>
+                  </>
+                )}
+
+                <Link
+                  to="/messages"
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="flex items-center justify-between px-3 py-2 rounded-lg text-xs font-semibold text-foreground hover:bg-accent"
+                >
+                  <div className="flex items-center gap-2.5">
+                    <MessageSquare className="w-4 h-4 text-coral" />
+                    <span>Messages</span>
+                  </div>
+                </Link>
+
+                <Link
+                  to="/notifications"
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="flex items-center justify-between px-3 py-2 rounded-lg text-xs font-semibold text-foreground hover:bg-accent"
+                >
+                  <div className="flex items-center gap-2.5">
+                    <Bell className="w-4 h-4 text-amber-500" />
+                    <span>Notifications</span>
+                  </div>
+                  {unreadCount > 0 && (
+                    <span className="text-[10px] px-2 py-0.5 rounded-full bg-coral text-white font-bold">
+                      {unreadCount}
+                    </span>
+                  )}
+                </Link>
+              </nav>
+            </div>
+          )}
 
           <div className="pt-3 border-t border-border">
             <div className="text-xs font-semibold text-muted-foreground uppercase tracking-wider mb-2">
-              Quick Switch Account
+              Quick Switch Demo Persona
             </div>
             <div className="grid grid-cols-3 gap-2">
               <button
-                onClick={() => {
-                  quickDemoLogin('creator');
-                  setMobileMenuOpen(false);
-                }}
+                onClick={() => handleDemoLogin('creator')}
                 className="py-1.5 px-2 rounded-lg bg-purple-500/15 text-purple-600 dark:text-purple-300 border border-purple-500/30 text-xs font-medium text-center"
               >
                 Creator
               </button>
               <button
-                onClick={() => {
-                  quickDemoLogin('business');
-                  setMobileMenuOpen(false);
-                }}
+                onClick={() => handleDemoLogin('business')}
                 className="py-1.5 px-2 rounded-lg bg-emerald-500/15 text-emerald-600 dark:text-emerald-300 border border-emerald-500/30 text-xs font-medium text-center"
               >
                 Business
               </button>
               <button
-                onClick={() => {
-                  quickDemoLogin('admin');
-                  setMobileMenuOpen(false);
-                }}
+                onClick={() => handleDemoLogin('admin')}
                 className="py-1.5 px-2 rounded-lg bg-amber-500/15 text-amber-600 dark:text-amber-300 border border-amber-500/30 text-xs font-medium text-center"
               >
                 Admin
@@ -460,14 +760,7 @@ const Navbar = () => {
           </div>
 
           {isAuthenticated ? (
-            <div className="pt-3 border-t border-border space-y-2">
-              <Link
-                to={getDashboardLink()}
-                onClick={() => setMobileMenuOpen(false)}
-                className="block w-full text-center py-2.5 rounded-xl bg-coral hover:bg-coral-600 text-white text-xs font-semibold shadow-md"
-              >
-                Open Dashboard
-              </Link>
+            <div className="pt-3 border-t border-border">
               <button
                 onClick={() => {
                   handleLogout();
